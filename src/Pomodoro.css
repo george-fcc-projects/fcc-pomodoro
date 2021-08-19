@@ -1,0 +1,48 @@
+.App {
+  min-height: 100vh;
+  --main-bg-colour: #3E7CB1;
+  --text-colour: #DBE4EE;
+  --secondary-text-colour: #81A4CD;
+  --header-colour: #054A91;
+  --accent-colour: #F17300;
+  background-color: var(--main-bg-colour);
+
+
+}
+
+.App-header {
+  background-color: var(--header-colour);
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 3vmin);
+  color: var(--text-colour);
+}
+
+.timer-container {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+}
+
+.button-wrapper {
+  min-width: 100%;
+}
+
+.timer-settings {
+  display: flex;
+  flex-direction: row;
+}
+
+.setting-div {
+  margin: 5px;
+  text-align: center;
+}
+
+.timer-control-wrapper {
+  margin: 10px;
+}
