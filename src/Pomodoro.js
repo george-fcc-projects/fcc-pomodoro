@@ -14,9 +14,18 @@ const INCREMENT = 'INCREMENT'
 const DECREMENT = 'DECREMENT'
 
 
-function secsToMins(seconds, displaySeconds) {
+function secsToMins(seconds, displaySeconds, timer=false) {
     let secs = (seconds % 60).toString();
     let mins = Math.trunc(seconds/60).toString();
+
+    switch (timer) {
+        case true:
+            if (mins.length === 1) {
+                mins = '0' + mins;
+            }
+            break;
+    }
+
     if (secs.length === 1) {
         secs = '0' + secs;
     }
@@ -160,6 +169,7 @@ class Pomodoro extends Component {
     }
 
     switchModes() {
+        this.playBeep();
         switch (this.state.currentType) {
             case SESSION:
                 this.setState((state) => ({
@@ -178,6 +188,7 @@ class Pomodoro extends Component {
     }
 
     reset() {
+        this.stopBeep();
         this.pauseTimer();
         this.setState((state) => ({
             breakLength: 300,
@@ -190,6 +201,12 @@ class Pomodoro extends Component {
     }
 
     playBeep() {
+        document.getElementById('beep').play();
+    }
+
+    stopBeep() {
+        document.getElementById('beep').pause();
+        document.getElementById('beep').currentTime = 0;
 
     }
 
@@ -261,6 +278,7 @@ class Beeper extends Component {
     constructor(props) {
         super(props);
         this.beepPlayer = new Audio(beepSound);
+        this.beepPlayer.id = 'beep2'
         this.play = this.play.bind(this);
 
 
@@ -268,19 +286,15 @@ class Beeper extends Component {
     }
 
     play() {
-        this.beepPlayer.play();
+        // this.beepPlayer.play();
+        document.getElementById('beep').play();
         console.log('playing');
     }
 
     render() {
         return (
             <div>
-                <audio src={beepSound}/>
-                <Button
-                    onClick={this.play}
-                >
-                    Here is a button
-                </Button>
+                <audio src={beepSound} id='beep'/>
             </div>
         );
     }
@@ -370,7 +384,7 @@ class TimerCountdown extends Component {
                     {this.props.currentState}
                 </h1>
                 <h3 id='time-left'>
-                    {secsToMins(this.props.currentTime, true)}
+                    {secsToMins(this.props.currentTime, true, true)}
                 </h3>
             </div>
         );
